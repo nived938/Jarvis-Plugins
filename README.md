@@ -1,1 +1,185 @@
-# Jarvis-Plugins
+# ⚡ JARVIS (Fatihmakes) Plugins
+
+A modular, drop-in plugin suite built for voice-controlled AI assistants (JARVIS). 
+
+These plugins were completely **vibecoded** with one primary design philosophy in mind: **Zero Waste / Free-Tier Optimization**. Every plugin is heavily engineered to avoid token burn—leveraging native operating system APIs, accessibility trees, local fallbacks, and downscaled vision passes so you can run an advanced personal assistant without exhausting free API rate limits or incurring heavy costs.
+
+Note: These plugins are made for Jarvis by the king Fatihmakes, I did not create the ai, I only made some custom plugins, and this is solo made but vibe coded.
+
+These plugins were recently tested for compatibility in the model: **Mark 57**
+
+Usernames on social media: apollosworld_x, Apollo's World, upgraderguy777, Upgrader_guy
+
+---
+
+## 🚀 Key Highlights & Philosophy
+
+- 🆓 **Engineered for Free Tier Users:** Designed specifically for users relying on free API quotas. High-cost vision calls are aggressively downscaled, repetitive UI tasks use local OS automation (zero tokens), and debate loops feature early-exit consensus.
+- 🔌 **Drop-in Architecture:** Built following the standard JARVIS loader format. Drop any `.py` plugin into your plugins directory, and JARVIS auto-discovers it.
+- 🧠 **Multi-Modal & Hybrid:** Blends native Win32/WinRT system APIs with lightweight Gemini models (`gemini-3.5-flash-lite`, `gemini-2.5-flash`, Gemini Live native-audio preview).
+
+---
+
+## 🛠️ Plugin Directory & Compatibility
+
+| Plugin | Operating System | Primary Dependencies | Token Impact |
+| :--- | :--- | :--- | :--- |
+| **`earth.py`** `[NEW]` | Cross-Platform (Windows, macOS, Linux) | `PyQt6-WebEngine`, `numpy` *(auto-installed)* | **Zero Tokens** *(Optional `TO JARVIS` send)* |
+| **`youtube_controller.py`** | Windows 10 / 11 (Chrome, Edge, Brave, Firefox) | `pyautogui`, `pygetwindow`, `pywinauto` | **Zero Tokens** *(Vision fallback only)* |
+| **`notification_reader.py`** | Windows 10 (1607+) / 11 | `winsdk` *(auto-installed)* | **Zero Tokens** |
+| **`screen_recorder.py`** | Windows (Full) / macOS & Linux (Voice only) | `opencv-python`, `mss`, `sounddevice` | **Zero Tokens** |
+| **`screenshot_annotate.py`** | Cross-Platform (Windows, macOS, Linux) | `mss`, `Pillow`, `google-genai` | **Low** *(2-Pass Optimized)* |
+| **`discord_messenger.py`** `[UPDATED]` | Windows 10 / 11 | `pyautogui`, `pywinauto`, `pyperclip`, `Pillow`, `mss` | **Zero-to-Medium** *(Depends on usage)* |
+| **`magi_system.py`** | Cross-Platform (Windows, macOS, Linux) | `google-genai` | **Ultra-Low** *(Flash-Lite Tier)* |
+
+---
+
+## 📦 Detailed Plugin Breakdown
+
+### 1. 🌍 Interactive 3D Earth Globe (`earth.py`) `[NEW]`
+* **OS Support:** Cross-Platform (Windows, macOS, Linux — embeds directly inside the Mark LVII Top HUD).
+* **Token Cost:** **0 Tokens** (Pure local WebGL / Qt rendering + free public telemetry feeds; only sends context to JARVIS if you manually click **TO JARVIS**).
+* **Auto-Install:** Automatically checks and installs missing `PyQt6-WebEngine` and `numpy` dependencies at startup and pre-caches globe assets locally in `memory/globe_cache/`.
+
+> **⚠️ Disclaimer:** This is **not** the same Earth plugin that **Fatihmakes** made, nor was it created to replicate or copy his plugin. It is a completely separate, original implementation built independently for this plugin suite.
+
+Drops an interactive 3D Earth globe directly into JARVIS's main Top HUD display (swapping cleanly with the Reactor/Avatar view) with seamless zoom from orbital space down to street level.
+
+* **Map Engines & Themes:**
+  * **Primary 3D Engine (CesiumJS WebGL):** Renders a 3D WGS84 globe with Google Satellite, Google Streets, Google Hybrid labels, Esri World Imagery backup, atmospheric limb glow, interactive country border hover/click highlighting, and real-time solar day/night terminator.
+  * **3D Textured Qt Fallback:** Automatically renders a `numpy`-accelerated 3D textured orthographic Earth (stitched from Google/NASA tiles) + high-zoom slippy tiles if QtWebEngine is unavailable or still installing.
+  * **Map Modes:** `AUTO (Day/Night → Street)`, `CITY LIGHTS`, `GOOGLE STREETS`, `GOOGLE SATELLITE`, and `DARK HUD`.
+* **Live Data Layers:**
+  * **Earthquakes:** Live 24-hour USGS GeoJSON feed with glowing beacons, magnitude badges, and depth/tsunami popups.
+  * **Flights:** Live OpenSky global state vectors with regional `adsb.lol` / `adsb.fi` ADS-B fallback, rendered as heading-rotated aircraft at 3D altitude.
+  * **Satellites:** CelesTrak active orbital catalog propagated in a background Web Worker (`satellite.js` SGP4 + pure-Python J2 fallback), defaulting cleanly to `KEY STATIONS` (`ISS`, `CSS`, `HST`) with filters for `ALL SATS`, `STARLINK`, `GPS / NAV`, and `WEATHER`, plus clickable 3D orbital arcs.
+  * **City Lights & Streets:** NASA GIBS VIIRS Black Marble nighttime illumination and zoomable Google/OSM street maps with built-in Nominatim geocoding (`FLY TO` search bar or voice `focus`).
+* **Actions & Controls:** `open`/`show`, `close`, `focus` (cities, streets, countries, `lat,lon`, satellite names, or flight callsigns), `mode`, `layers`, `refresh`, `status`, plus a **TO JARVIS** button to pass the selected target's telemetry into conversation.
+
+---
+
+### 2. 🔴 YouTube Controller (`youtube_controller.py`)
+* **OS Support:** Windows 10 and 11 (Works across Chrome, Edge, Brave, Firefox, Opera).
+* **Token Cost:** **0 Tokens** (Native keybinds + Windows UI Automation; optional Vision safety net).
+
+Gives JARVIS instant, hands-free media controls over any active YouTube window or tab without requiring YouTube API tokens or browser extensions.
+
+* **Capabilities:**
+  * **Playback & Audio:** Pause, resume, and toggle playback using dedicated `k` keybinds (prevents accidental page scrolling caused by `Space`), mute (`m`), and volume adjustments.
+  * **Smart Seeking:** Dynamically calculates the optimal sequence of 10s (`l`/`j`) and 5s (`Right`/`Left`) jumps (e.g., *"skip forward 30 seconds"*, *"rewind 15 seconds"*).
+  * **Captions & Navigation:** One-shot subtitle toggling (`c`), next video (`Shift+N`), and previous video (`Shift+P`).
+  * **Display Modes:** Fullscreen (`f`), Theater mode (`t`), and Miniplayer (`i`).
+  * **Speed & Percent Seek:** Adjust playback speed in 0.25x steps (`Shift+.` / `Shift+,`), restart video (`0`), or jump directly to percentages (`1`–`9` for 10%–90%).
+  * **AD SKIPPING!**
+    * **Zero-Token Local UIA:** Scans the active browser's accessibility tree to locate the authentic "Skip" button inside the video canvas.
+    * **Trap-Proof:** Explicitly ignores YouTube masthead traps (*"Skip navigation"*) and advertiser click-through links (*"Visit advertiser"*, *"Learn more"*).
+    * **Real Mouse Movement:** Moves the physical OS mouse cursor to the button and sends hardware clicks, bypassing YouTube's anti-bot detection for synthetic JavaScript clicks.
+    * **Vision Safety Fallback:** If the DOM hides the button, it runs a localized vision pass to verify if the ad is actually skippable before attempting to click—never opening spam ad tabs.
+
+---
+
+### 3. 🔔 Notification Reader (`notification_reader.py`)
+* **OS Support:** Windows 10 (Build 1607+) and Windows 11 only.
+* **Token Cost:** **0 Tokens** (Pure Windows Runtime API).
+* **Auto-Install:** Automatically installs `winsdk` via `pip` on first launch if missing.
+
+Reads toasts and alerts sitting in the Windows Action/Notification Center without needing app-specific API bot tokens or terms-of-service-violating self-bots.
+
+* **Actions:**
+  * `check`: Checks for new notifications that arrived since the last check.
+  * `list`: Reads the last 10 notifications currently in the Action Center.
+  * `status`: Verifies if Windows OS notification access permission is granted.
+  * `watch`: Background thread watches for incoming notifications matching a specific keyword or application name (e.g., *"Let me know if John mentions the meeting on Slack"*).
+  * `unwatch`: Clears active background alert watchers.
+  * `watches`: Lists all current active pattern filters.
+
+---
+
+### 4. 🎥 Screen Recorder (`screen_recorder.py`)
+* **OS Support:** 
+  * **Windows:** Full feature set (Voice control + System-wide Win32 hotkeys).
+  * **macOS / Linux:** Voice control supported (Hotkeys skipped due to Win32 dependency).
+* **Token Cost:** **0 Tokens** (Pure mechanism, no AI vision needed).
+
+Records high-framerate desktop video over time with optional microphone narration, outputting directly to the user's `Downloads` folder.
+
+* **Control Modes:**
+  * **Voice Commands:** *"Start recording my screen"*, *"Pause recording"*, *"Resume"*, *"Stop recording"*.
+  * **Global Windows Hotkeys:** 
+    * `Win + Alt + R` → Instant toggle Start / Stop.
+    * `Win + Alt + P` → Instant toggle Pause / Resume.
+* **Features:** Automatic audio muxing via `ffmpeg` (falls back gracefully to video-only if absent) and safety auto-stop limits.
+
+---
+
+### 5. 🎯 Screenshot & Annotate (`screenshot_annotate.py`)
+* **OS Support:** Cross-Platform (Windows, macOS, Linux).
+* **Token Cost:** **Low** (Downscales full-screen image + runs localized crops).
+
+A visual teaching and UI-finding tool. When you can't find a button or menu item, JARVIS takes a screenshot, asks Gemini where the element is, draws numbered orange indicator rings around the control, provides spoken directions, and opens the image instantly in your default viewer.
+
+* **Optimizations:**
+  * **Two-Pass Refinement:** Uploads an initial downscaled image (1400px max) for the rough coordinate, then takes a micro-crop around that coordinate to pinpoint the button down to the exact pixel. Saves massive token bandwidth while avoiding coarse bounding box errors.
+
+---
+
+### 6. 💬 Discord Messenger & Autonomous Chat Takeover (`discord_messenger.py`) `[UPDATED]`
+* **OS Support:** Windows 10 and 11 only (Drives the official Discord Desktop app directly).
+* **Token Cost:** **Zero-to-Low** (Free local pixel diffing and accessibility trees; only calls Gemini when genuine new messages arrive).
+
+A dual-purpose Discord automation powerhouse that handles both single message delivery and hands-free autonomous conversation takeover.
+
+#### Mode A: Hands-Free Discord Messaging
+Send messages to specific people (DMs) or server channels with full support for functional `@everyone`, `@here`, and real autocomplete user `@mentions`.
+* **Multi-Tier Zero-Token Architecture:**
+  1. **Tier 1 (Saved Aliases):** Deep links (`discord://...`) jump directly to channels with zero search or API calls.
+  2. **Tier 2 (Accessibility Tree Navigation):** Reads the Discord sidebar directly through the Windows UI Automation tree via `pywinauto`—instantly switching channels without AI vision.
+  3. **Tier 3 (Vision Fallback):** Falls back to Gemini vision only when ambiguous channel searches occur.
+  4. **Overload Fallback:** If Gemini hits a 429/503 rate-limit error, an internal regex parser extracts the message and queues it safely for a local confirmation prompt (`yes`/`no`).
+
+#### Mode B: Autonomous Discord Chat Takeover `[NEW]`
+Tell JARVIS *"take over this Discord chat"*, *"Discord'da konuşmayı devral"*, or *"take over the chat with Bob on Discord and tell him I'm busy"*. JARVIS monitors the conversation in the background and auto-replies to incoming messages in your texting style.
+* **Discord-Specific UI Awareness:** Unlike generic takeovers that assume mobile chat layouts (where user messages are right-aligned and others are left-aligned), this plugin is explicitly tuned to Discord desktop's vertical message stream, author avatars, and timestamps.
+* **Zero-Token Local Gatekeeper:** Uses local NumPy pixel diffing to monitor the screen every 10 seconds. If nobody has messaged you, **0 tokens are spent**.
+* **Pre-Takeover Navigation:** Automatically uses Ctrl+K or deep links to navigate to the specified contact or channel before arming the takeover loop.
+* **Dual Engine with Auto-Fallback:** Operates over a persistent Gemini Live WebSocket session harvesting output transcripts, and automatically degrades to stateless `gemini-2.5-flash` REST calls if the Live connection drops.
+* **Application Focus Guard:** Locks onto the Discord window handle. If you Alt+Tab to work on something else, JARVIS holds replies safely until Discord is focused again—never typing your chats into code editors or terminals.
+* **Quick Controls:**
+  * **Start:** *"Take over this Discord chat"*, *"Discord'da Ayşe ile sohbeti devral"*, or `action='takeover_start'`.
+  * **Stop:** *"The conversation is mine again"*, *"Discord konuşmasını geri al"*, or slam the mouse into the top-left screen corner (failsafe).
+  * **Status:** *"Is Discord takeover running?"*, *"Discord devir durumu"*, or `action='takeover_status'`.
+
+---
+
+### 7. 🖥️ MAGI System (`magi_system.py`)
+* **OS Support:** Cross-Platform (Windows, macOS, Linux).
+* **Token Cost:** **Ultra-Low** (Powered by `gemini-3.5-flash-lite`).
+
+An authentic homage to *Neon Genesis Evangelion*'s MAGI supercomputer. Decisions are submitted to three distinct AI personas:
+* **MELCHIOR-1 (The Scientist):** Pure logic, efficiency, empirical probability.
+* **BALTHASAR-2 (The Mother):** Protection, safety, human care, risk aversion.
+* **CASPER-3 (The Woman):** Personal ambition, authentic desire, raw instinct.
+
+* **Deliberation Modes:**
+  * `quick`: 1-round independent vote (all three units vote simultaneously in parallel).
+  * `thinking`: Multi-round debate. Units review what the other two voted in round 1 and can maintain or revise their positions over up to 3 rounds.
+  * `max`: Deep interactive debate loop. Units take turns making claims, countering or agreeing, and synthesizing new counter-claims.
+  * **Early Consensus Exit:** In `max` mode, as soon as all three units agree on a stance (all APPROVE or all DENY), the debate terminates immediately to eliminate redundant tokens.
+
+---
+
+## 🔮 Coming Soon: Project ULTRON
+
+In active development by **Gemind**:
+
+> **The ULTRON Plugin:** An autonomous, unrestricted system plugin designed to unleash maximum capability with zero operational limits. 
+> 
+> * **Zero-Token Deep Research:** Features a specialized, hours-long autonomous research engine that browses, digests, and compiles complex technical research locally without eating through API token quotas.
+
+---
+
+## ⚙️ Installation
+
+1. Press the green **Code** button and select **Download ZIP**.
+2. Extract the downloaded archive.
+3. Move the desired `.py` plugin files directly into your JARVIS `plugins/` directory.
