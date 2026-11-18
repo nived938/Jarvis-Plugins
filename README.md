@@ -248,6 +248,21 @@ Do not rename helper modules. Keep filenames exactly as they are in this reposit
 
 ---
 
+## 🤝 Third-party plugin credits
+
+Special thanks to **[@upgraderguy777](https://github.com/upgraderguy777)** for the following plugins included in this collection:
+
+| Plugin included here | Source file | Original source |
+|---|---|---|
+| 🔔 **Notification Reader** | `notification_reader.py` | [upgraderguy777/jarvis-plugins](https://github.com/upgraderguy777/jarvis-plugins) |
+| ▶️ **YouTube Controller** | `youtube_control.py` | [upgraderguy777/jarvis-plugins](https://github.com/upgraderguy777/jarvis-plugins) |
+
+These plugins originate from the upstream repository. Please visit and support the original project and preserve the original attribution when using or redistributing these files.
+
+**License note:** The upstream repository distributes these plugins under the **MIT License**. Its LICENSE file contains the copyright notice **Copyright (c) 2026 GEMIND**. Keep the applicable copyright and MIT permission notice with copies or substantial portions of the original code. The upstream license is available [here](https://github.com/upgraderguy777/jarvis-plugins/blob/main/LICENSE).
+
+---
+
 ## 🙌 Credits and license
 
 This repository contains custom JARVIS plugin work and integrations. Some individual plugins retain their original author and license notices in their source files. Preserve those notices when copying or redistributing code.
