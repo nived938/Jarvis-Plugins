@@ -2,9 +2,30 @@
 
 A collection of modular plugins for the JARVIS desktop assistant. This repository adds capabilities for maps, system monitoring, productivity, media, health, files, Google services, GitHub, and more.
 
-The plugins were tested for compatibility with **Mark 57**. Compatibility with other JARVIS versions depends on the plugin loader and internal APIs available in that build.
+The standalone plugins in this collection were previously tested against **Mark 57**. The full JARVIS application has since advanced to **MARK LIX (59)**. See the complete application link below. Compatibility of individual standalone plugins can still depend on the JARVIS plugin loader and internal APIs available in the build you use.
+
 
 > 🚨 **Important:** A folder containing several Python files is one complete plugin package when those files depend on one another. The helper files are not separate plugins. Copy the entire contents of that folder into JARVIS's plugins directory so the main plugin can import its supporting modules.
+
+## 🚀 Get the Full JARVIS Application
+
+Want the complete assistant instead of only the standalone plugin collection?
+
+The **fully updated JARVIS MARK LIX (59)** application is maintained in its own repository:
+
+<p align="center">
+  <a href="https://github.com/nived938/Jarvis-Mark-LIX">
+    <img src="https://img.shields.io/badge/Download-JARVIS%20MARK%20LIX%20(59)-blue?style=for-the-badge&logo=github" alt="JARVIS MARK LIX 59 on GitHub">
+  </a>
+</p>
+
+- 🤖 **Complete JARVIS application:** [nived938/Jarvis-Mark-LIX](https://github.com/nived938/Jarvis-Mark-LIX)
+- 🧩 **Integrated plugins directory:** [Browse the plugins included in Mark LIX](https://github.com/nived938/Jarvis-Mark-LIX/tree/main/plugins)
+- 📖 **Full application documentation:** [Read the Mark LIX README](https://github.com/nived938/Jarvis-Mark-LIX/blob/main/readme.md)
+
+Mark LIX (59) includes the complete JARVIS project, its updated application code, interface, voice and AI systems, and integrated plugin directory. This repository remains the separate collection of plugins and their installation instructions.
+
+---
 
 ## 📚 Contents
 
